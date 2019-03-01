@@ -37,9 +37,9 @@ async function makeUnicorn(selection) {
     const hornImages = (await myImages.getEntries()).find(entry => entry.name.includes('horns'));
     // Did you find the images folder?
     if (hornImages != null) {
-        console.log("I found the horse images folder. " + hornImages);
+        console.log("I found the horn images folder. " + hornImages);
     } else {
-        console.log("I have no idea and horse images = " + hornImages);
+        console.log("I have no idea and horn images = " + hornImages);
     }
 
     const folderContents = await horseImages.getEntries();
@@ -49,9 +49,20 @@ async function makeUnicorn(selection) {
     // console.log("HorseArray = " + horseArray);
     console.log("HorseArray.length = " + horseArray.length);
 
-    let randomNumber = (Math.floor(Math.random() * horseArray.length));
-    console.log("Random number is = " + randomNumber);
-    let randomHorse = horseArray[randomNumber];
+    const hornfolderContents = await hornImages.getEntries();
+    // folderContents.forEach(entry => console.log("Entry name = " + entry.name));
+    const hornArray = [];
+    hornfolderContents.forEach(entry => hornArray.push(entry));
+    // console.log("HornArray = " + hornArray);
+    console.log("HornArray.length = " + hornArray.length);
+
+    let randomHorseNumber = (Math.floor(Math.random() * horseArray.length));
+    console.log("Random horse number is = " + randomHorseNumber);
+    let randomHorse = horseArray[randomHorseNumber];
+
+    let randomHornNumber = (Math.floor(Math.random() * hornArray.length));
+    console.log("Random horn number is = " + randomHornNumber);
+    let randomHorn = hornArray[randomHornNumber];
 
 
     let ImageFill = require("scenegraph").ImageFill;
@@ -62,7 +73,7 @@ async function makeUnicorn(selection) {
     newElement.width = 500;
     newElement.height = 335;
     newElement.fill = horseFill;
-    newElement.name = "🐴 no. " + randomNumber;
+    newElement.name = "🐴 no. " + randomHorseNumber;
 
     selection.insertionParent.addChild(newElement);
     newElement.moveInParentCoordinates(250, 250);
