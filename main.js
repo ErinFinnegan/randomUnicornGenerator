@@ -2,48 +2,12 @@
 var { Text, ImageFill, storage, Color, Rectangle } = require("scenegraph");
 const fs = require("uxp").storage.localFileSystem;
 
-// User picks an image file
-// const storage = require("uxp").storage;
-// const fs = storage.localFileSystem;
-// let imageFile = await fs.getFileForOpening({ types: storage.fileTypes.images });
-// let imageFile = ({ types: Image});
-
-//Get the plugin storage folder
-
-// const fs = storage.localFileSystem;
-
-// Loop over the contents of that folder 
-// until you find the file you want
-
-// const folder = await fs.getFolder();
-// const myNovel = (await fs.getEntries()).find(entry => entry.name.includes('novel'));
-
-// const folder = await fs.getFolder();
-// const myImages = (await fs.getEntries()).find(entry => entry.name.includes('images'));
-
-// const entries = await aFolder.getEntries();
-// const allFiles = entries.filter(entry => entry.isFile);
-
-// make a const of that file for use in imageFill
-
-// Create ImageFill for this image
-// const ImageFill = require("scenegraph").ImageFill;
-// let fill = new ImageFill(imageFile);
-// let fill = new ImageFill(imageFile);
-
-// Set fill of first selected item
-// selection.items[0].fill = fill;
-
-
-
 async function makeUnicorn(selection) {
     console.log("Time to make some unicorns!");
 
     const pluginFolder = await fs.getPluginFolder();
-    console.log("pluginFolder = " + pluginFolder);
-    console.log("fs = " + fs);
-    // console.log("");
-    // const fs = storage.localFileSystem;
+    // console.log("pluginFolder = " + pluginFolder);
+    // console.log("fs = " + fs);
 
     // Did you find the plugin folder?
     if (pluginFolder != null) {
@@ -62,40 +26,86 @@ async function makeUnicorn(selection) {
         console.log("I have no idea and myImages = " + myImages);
     }
 
-    const UnicornImage = (await myImages.getEntries()).find(entry => entry.name.includes('unicorn.jpg'));
-    // Did you find the unicorn image?
-    if (UnicornImage != null) {
-        console.log("I found the unicorn file.")
+    const horseImages = (await myImages.getEntries()).find(entry => entry.name.includes('horses'));
+    // Did you find the images folder?
+    if (horseImages != null) {
+        console.log("I found the horse images folder. " + horseImages);
     } else {
-        console.log("I have no idea and UnicornImage = " + UnicornImage);
+        console.log("I have no idea and horse images = " + horseImages);
     }
 
-    const ImageFill = require("scenegraph").ImageFill;
-    let unicornFill = new ImageFill(UnicornImage);
+    const hornImages = (await myImages.getEntries()).find(entry => entry.name.includes('horns'));
+    // Did you find the images folder?
+    if (hornImages != null) {
+        console.log("I found the horn images folder. " + hornImages);
+    } else {
+        console.log("I have no idea and horn images = " + hornImages);
+    }
 
-    // Insert a red square at (0, 0) in the current artboard or group/container
-    let emoji = new Text();
-    emoji.text = "🦄";
-    emoji.fontSize = 100;
-    emoji.fill = new Color("#FFFFFF");
+    const folderContents = await horseImages.getEntries();
+    // folderContents.forEach(entry => console.log("Entry name = " + entry.name));
+    const horseArray = [];
+    folderContents.forEach(entry => horseArray.push(entry));
+    // console.log("HorseArray = " + horseArray);
+    console.log("HorseArray.length = " + horseArray.length);
 
-    // shape.height = 100;
-    // shape.fill = new Color("#f00");
-    // console.log("Text = " + Text());
-    // console.log("emoji.fill = " + emoji.fill);
-    selection.insertionParent.addChild(emoji);
-    emoji.moveInParentCoordinates(0, 100);
+    const hornfolderContents = await hornImages.getEntries();
+    // folderContents.forEach(entry => console.log("Entry name = " + entry.name));
+    const hornArray = [];
+    hornfolderContents.forEach(entry => hornArray.push(entry));
+    // console.log("HornArray = " + hornArray);
+    console.log("HornArray.length = " + hornArray.length);
 
-    const newElement = new Rectangle();
-    newElement.width = 500;
-    newElement.height = 335;
-    newElement.fill = unicornFill;
-    newElement.name = "🦄 It's a freaking unicorn 🦄";
+    let randomHorseNumber = (Math.floor(Math.random() * horseArray.length));
+    console.log("Random horse number is = " + randomHorseNumber);
+    let randomHorse = horseArray[randomHorseNumber];
 
-    selection.insertionParent.addChild(newElement);
-    newElement.moveInParentCoordinates(250, 250);
+    let randomHornNumber = (Math.floor(Math.random() * hornArray.length));
+    console.log("Random horn number is = " + randomHornNumber);
+    let randomHorn = hornArray[randomHornNumber];
 
 
+    let ImageFill = require("scenegraph").ImageFill;
+    let horseFill = new ImageFill(randomHorse);
+    let hornFill = new ImageFill(randomHorn);
+
+
+    const newHorse = new Rectangle();
+    newHorse.width = 500;
+    newHorse.height = 335;
+    newHorse.fill = horseFill;
+    newHorse.name = "🐴 no. " + randomHorseNumber;
+
+    selection.insertionParent.addChild(newHorse);
+    newHorse.moveInParentCoordinates(250, 250);
+
+    const newHorn = new Rectangle();
+    newHorn.width = 500;
+    newHorn.height = 335;
+    newHorn.fill = hornFill;
+    newHorn.name = "📯 no. " + randomHornNumber;
+
+    selection.insertionParent.addChild(newHorn);
+    newHorn.moveInParentCoordinates(250, 250);
+
+    sanityCheck();
+
+    function sanityCheck() {
+        let emoji = new Text();
+        let sane = new Text();
+        selection.insertionParent.addChild(emoji);
+        selection.insertionParent.addChild(sane);
+        emoji.text = "🦄";
+        sane.text = "Sane.";
+        emoji.fontSize = 100;
+        sane.fontSize = 24;
+        emoji.fill = new Color("#FFFFFF");
+        sane.fill = new Color("#E55EF1");
+        emoji.name = "🦄";
+        sane.name = "sane!"
+        emoji.moveInParentCoordinates(0, 100);
+        sane.moveInParentCoordinates(0, 124);
+    }
 }
 
 
