@@ -26,6 +26,14 @@ async function makeUnicorn(selection) {
         console.log("I have no idea and myImages = " + myImages);
     }
 
+    const horseImages = (await pluginFolder.getEntries()).find(entry => entry.name.includes('horses'));
+    // Did you find the images folder?
+    if (horseImages != null) {
+        console.log("I found the horse images folder. " + horseImages);
+    } else {
+        console.log("I have no idea and horse images = " + horseImages);
+    }
+
     const folderContents = await myImages.getEntries();
     // folderContents.forEach(entry => console.log("Entry name = " + entry.name));
     const horseArray = [];
