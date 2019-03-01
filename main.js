@@ -62,40 +62,48 @@ async function makeUnicorn(selection) {
         console.log("I have no idea and myImages = " + myImages);
     }
 
-    const UnicornImage = (await myImages.getEntries()).find(entry => entry.name.includes('unicorn.jpg'));
+    const folderContents = await myImages.getEntries();
+    folderContents.forEach(entry => console.log("Entry name = " + entry.name));
+    const horseArray = [];
+    folderContents.forEach(entry => horseArray.push(entry));
+    console.log("HorseArray = " + horseArray);
+
+    const randomHorse = horseArray[Math.floor(Math.random() * horseArray.length)];
+
+    // const UnicornImage = (await myImages.getEntries()).find(entry => entry.name.includes('unicorn.jpg'));
+
+
     // Did you find the unicorn image?
-    if (UnicornImage != null) {
-        console.log("I found the unicorn file.")
-    } else {
-        console.log("I have no idea and UnicornImage = " + UnicornImage);
-    }
+    // if (UnicornImage != null) {
+    //     console.log("I found the unicorn file.")
+    // } else {
+    //     console.log("I have no idea and UnicornImage = " + UnicornImage);
+    // }
 
     const ImageFill = require("scenegraph").ImageFill;
-    let unicornFill = new ImageFill(UnicornImage);
+    let unicornFill = new ImageFill(randomHorse);
 
-    // Insert a red square at (0, 0) in the current artboard or group/container
-    let emoji = new Text();
-    emoji.text = "🦄";
-    emoji.fontSize = 100;
-    emoji.fill = new Color("#FFFFFF");
+    sanityCheck();
 
-    // shape.height = 100;
-    // shape.fill = new Color("#f00");
-    // console.log("Text = " + Text());
-    // console.log("emoji.fill = " + emoji.fill);
-    selection.insertionParent.addChild(emoji);
-    emoji.moveInParentCoordinates(0, 100);
+    function sanityCheck() {
+        let emoji = new Text();
+        emoji.text = "🦄 \r Sane";
+        emoji.fontSize = 100;
+        emoji.fill = new Color("#E55EF1");
+        emoji.name = "🦄 Sanity check";
 
-    const newElement = new Rectangle();
-    newElement.width = 500;
-    newElement.height = 335;
-    newElement.fill = unicornFill;
-    newElement.name = "🦄 It's a freaking unicorn 🦄";
+        selection.insertionParent.addChild(emoji);
+        emoji.moveInParentCoordinates(0, 100);
+        const newElement = new Rectangle();
+        newElement.width = 500;
+        newElement.height = 335;
+        newElement.fill = unicornFill;
+        newElement.name = "🦄 It's a freaking unicorn 🦄";
 
-    selection.insertionParent.addChild(newElement);
-    newElement.moveInParentCoordinates(250, 250);
+        selection.insertionParent.addChild(newElement);
+        newElement.moveInParentCoordinates(250, 250);
 
-
+    }
 }
 
 
