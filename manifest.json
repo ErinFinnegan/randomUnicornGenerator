@@ -1,0 +1,24 @@
+{
+  "name": "Erins Random Unicorn Generator 101",
+  "host": {
+    "app": "XD",
+    "minVersion": "13.0.0"
+  },
+  "description": "Generator a random unicorn",
+  "id": "4683c93b",
+  "icons": [
+    {
+      "path": "images/icon.png",
+      "width": 96,
+      "height": 96
+    }
+  ],
+  "uiEntryPoints": [
+    {
+      "label": "🦄🦄🦄🦄",
+      "type": "menu",
+      "commandId": "makeUnicorn"
+    }
+  ],
+  "version": "1.0.0"
+}
