@@ -67,29 +67,44 @@ async function makeUnicorn(selection) {
 
     let ImageFill = require("scenegraph").ImageFill;
     let horseFill = new ImageFill(randomHorse);
+    let hornFill = new ImageFill(randomHorn);
 
 
-    const newElement = new Rectangle();
-    newElement.width = 500;
-    newElement.height = 335;
-    newElement.fill = horseFill;
-    newElement.name = "🐴 no. " + randomHorseNumber;
+    const newHorse = new Rectangle();
+    newHorse.width = 500;
+    newHorse.height = 335;
+    newHorse.fill = horseFill;
+    newHorse.name = "🐴 no. " + randomHorseNumber;
 
-    selection.insertionParent.addChild(newElement);
-    newElement.moveInParentCoordinates(250, 250);
+    selection.insertionParent.addChild(newHorse);
+    newHorse.moveInParentCoordinates(250, 250);
 
+    const newHorn = new Rectangle();
+    newHorn.width = 500;
+    newHorn.height = 335;
+    newHorn.fill = hornFill;
+    newHorn.name = "📯 no. " + randomHornNumber;
+
+    selection.insertionParent.addChild(newHorn);
+    newHorn.moveInParentCoordinates(250, 250);
 
     sanityCheck();
 
     function sanityCheck() {
         let emoji = new Text();
+        let sane = new Text();
         selection.insertionParent.addChild(emoji);
-        emoji.text = "🦄 \r Sane";
+        selection.insertionParent.addChild(sane);
+        emoji.text = "🦄";
+        sane.text = "Sane.";
         emoji.fontSize = 100;
-        emoji.fill = new Color("#E55EF1");
-        emoji.name = "🦄 Sanity check";
+        sane.fontSize = 24;
+        emoji.fill = new Color("#FFFFFF");
+        sane.fill = new Color("#E55EF1");
+        emoji.name = "🦄";
+        sane.name = "sane!"
         emoji.moveInParentCoordinates(0, 100);
-
+        sane.moveInParentCoordinates(0, 124);
     }
 }
 
