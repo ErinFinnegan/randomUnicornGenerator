@@ -26,7 +26,7 @@ async function makeUnicorn(selection) {
         console.log("I have no idea and myImages = " + myImages);
     }
 
-    const horseImages = (await pluginFolder.getEntries()).find(entry => entry.name.includes('horses'));
+    const horseImages = (await myImages.getEntries()).find(entry => entry.name.includes('horses'));
     // Did you find the images folder?
     if (horseImages != null) {
         console.log("I found the horse images folder. " + horseImages);
@@ -34,7 +34,15 @@ async function makeUnicorn(selection) {
         console.log("I have no idea and horse images = " + horseImages);
     }
 
-    const folderContents = await myImages.getEntries();
+    const hornImages = (await myImages.getEntries()).find(entry => entry.name.includes('horns'));
+    // Did you find the images folder?
+    if (hornImages != null) {
+        console.log("I found the horse images folder. " + hornImages);
+    } else {
+        console.log("I have no idea and horse images = " + hornImages);
+    }
+
+    const folderContents = await horseImages.getEntries();
     // folderContents.forEach(entry => console.log("Entry name = " + entry.name));
     const horseArray = [];
     folderContents.forEach(entry => horseArray.push(entry));
@@ -47,14 +55,14 @@ async function makeUnicorn(selection) {
 
 
     let ImageFill = require("scenegraph").ImageFill;
-    let unicornFill = new ImageFill(randomHorse);
+    let horseFill = new ImageFill(randomHorse);
 
 
     const newElement = new Rectangle();
     newElement.width = 500;
     newElement.height = 335;
-    newElement.fill = unicornFill;
-    newElement.name = "🦄 It's a freaking unicorn 🦄";
+    newElement.fill = horseFill;
+    newElement.name = "🐴 no. " + randomNumber;
 
     selection.insertionParent.addChild(newElement);
     newElement.moveInParentCoordinates(250, 250);
